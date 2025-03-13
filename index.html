@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Quiz</title>
+    <style>
+        :root {
+            --dark-blue: #2a324b;
+            --darker-blue: #1c2541;
+            --light-text: #ffffff;
+            --card-bg: #3c4361;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-blue);
+            color: var(--light-text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .quiz-intro {
+            flex: 1;
+            padding-right: 2rem;
+        }
+        
+        .quiz-intro h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-intro h2 {
+            font-size: 3.5rem;
+            margin: 0;
+            margin-bottom: 2rem;
+        }
+        
+        .quiz-intro p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .quiz-options {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .option-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        
+        .icon.html {
+            background-color: #FFF4E6;
+        }
+        
+        .icon.css {
+            background-color: #E6F7EC;
+        }
+        
+        .icon.js {
+            background-color: #E6F1FF;
+        }
+        
+        .icon.accessibility {
+            background-color: #F9E6FF;
+        }
+        
+        .option-name {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #3c4361;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #7857FF;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+        
+        .theme-icon {
+            color: #FFF;
+            font-size: 1.2rem;
+        }
+        
+        .dark-mode-icon {
+            opacity: 0.5;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .quiz-intro {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-intro">
+            <h1>Welcome to the</h1>
+            <h2>Frontend Quiz!</h2>
+            <p>Pick a subject to get started.</p>
+        </div>
+        
+        <div class="quiz-options">
+            <div class="option-card" data-subject="html">
+                <div class="icon html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF7733" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                </div>
+                <span class="option-name">HTML</span>
+            </div>
+            
+            <div class="option-card" data-subject="css">
+                <div class="icon css">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2FAC76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 21v-7a4 4 0 0 1 4-4h12"></path>
+                        <path d="M15 10l5-5-5-5"></path>
+                    </svg>
+                </div>
+                <span class="option-name">CSS</span>
+            </div>
+            
+            <div class="option-card" data-subject="js">
+                <div class="icon js">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#306AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 16V8a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v8"></path>
+                        <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
+                        <path d="M12 4v4"></path>
+                        <path d="M12 12v4"></path>
+                    </svg>
+                </div>
+                <span class="option-name">Javascript</span>
+            </div>
+            
+            <div class="option-card" data-subject="accessibility">
+                <div class="icon accessibility">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#A729F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="7" r="1"></circle>
+                        <path d="M9 12h6"></path>
+                        <path d="M12 12v6"></path>
+                    </svg>
+                </div>
+                <span class="option-name">Accessibility</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="theme-toggle">
+        <div class="theme-icon sun-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </div>
+        
+        <label class="toggle-switch">
+            <input type="checkbox" id="themeToggle" checked>
+            <span class="slider"></span>
+        </label>
+        
+        <div class="theme-icon dark-mode-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const sunIcon = document.querySelector('.sun-icon');
+            const darkIcon = document.querySelector('.dark-mode-icon');
+            
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    body.style.backgroundColor = 'var(--dark-blue)';
+                    sunIcon.style.opacity = '1';
+                    darkIcon.style.opacity = '0.5';
+                } else {
+                    body.style.backgroundColor = '#f5f7fb';
+                    body.style.color = '#1c2541';
+                    sunIcon.style.opacity = '0.5';
+                    darkIcon.style.opacity = '1';
+                    
+                    // Change card backgrounds in light mode
+                    document.querySelectorAll('.option-card').forEach(card => {
+                        card.style.backgroundColor = '#ffffff';
+                        card.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                    });
+                }
+            });
+            
+            // Add click event to quiz options
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const subject = card.getAttribute('data-subject');
+                    alert(`Has seleccionado el tema: ${subject}`);
+                    // Aquí puedes agregar la lógica para iniciar el quiz del tema seleccionado
+                });
+            });
+        });
+    </script>
+</body>
+</html>
